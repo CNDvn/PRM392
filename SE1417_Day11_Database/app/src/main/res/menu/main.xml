@@ -6,5 +6,15 @@
         android:onClick="clickToLoadFromRAW"
         android:orderInCategory="100"
         android:title="Load Data From RAW" />
+    <item
+        android:id="@+id/action_saveFromRAWToInternal"
+        android:onClick="clickToSaveFromRAWToInternal"
+        android:orderInCategory="100"
+        android:title="Save From RAW To Internal" />
+    <item
+        android:id="@+id/action_loadFromInternal"
+        android:onClick="clickToLoadFromInternal"
+        android:orderInCategory="100"
+        android:title="Load Data From Internal" />
 
 </menu>

@@ -1,5 +1,6 @@
 package com.example.se1417_day11_database;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.se1417_day11_database.databinding.ActivityMainBinding;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
@@ -94,7 +97,50 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     StudentDTO dto = (StudentDTO) listViewStudent.getItemAtPosition(i);
-                    Toast.makeText(MainActivity.this,dto.toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, dto.toString(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra("dto", dto);
+                    startActivity(intent);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickToSaveFromRAWToInternal(MenuItem item) {
+        try {
+            StudentDAO dao = new StudentDAO();
+            InputStream is = getResources().openRawResource(R.raw.data);
+            List<StudentDTO> list = dao.loadFromRAW(is);
+            FileOutputStream fos = openFileOutput("hieubd.txt", MODE_PRIVATE);
+            dao.saveToInternal(fos, list);
+            Toast.makeText(this, "Save to internal success", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickToLoadFromInternal(MenuItem item) {
+        listViewStudent = findViewById(R.id.listViewStudent);
+        txtTitle = findViewById(R.id.txtTitle);
+        adapter = new StudentAdapter();
+        txtTitle.setText("List student from internal");
+
+        try {
+            FileInputStream fis = openFileInput("hieubd.txt");
+            StudentDAO dao = new StudentDAO();
+            List<StudentDTO> result = dao.loadFromInternal(fis);
+            adapter.setStudentDTOList(result);
+            listViewStudent.setAdapter(adapter);
+            listViewStudent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    StudentDTO dto = (StudentDTO) listViewStudent.getItemAtPosition(i);
+                    Toast.makeText(MainActivity.this, dto.toString(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra("dto", dto);
+                    startActivity(intent);
                 }
             });
         } catch (Exception e) {

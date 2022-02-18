@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SE1417_Day11_Database">
         <activity
+            android:name=".DetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
