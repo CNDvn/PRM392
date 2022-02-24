@@ -28,6 +28,7 @@ import com.example.se1417_day11_database.databinding.ActivityMainBinding;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -143,6 +144,47 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickToLoadFromExternal(MenuItem item) {
+        listViewStudent = findViewById(R.id.listViewStudent);
+        txtTitle = findViewById(R.id.txtTitle);
+        adapter = new StudentAdapter();
+        txtTitle.setText("List student from SD Card (External)");
+
+        try {
+            StudentDAO dao = new StudentDAO();
+            List<StudentDTO> list = dao.loadFromExternal();
+            adapter.setStudentDTOList(list);
+            listViewStudent.setAdapter(adapter);
+            listViewStudent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    StudentDTO dto = (StudentDTO) listViewStudent.getItemAtPosition(i);
+                    Toast.makeText(MainActivity.this, dto.toString(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra("dto", dto);
+                    startActivity(intent);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickToSaveToExternal(MenuItem item) {
+        try {
+            FileInputStream fis = openFileInput("hieubd.txt");
+            StudentDAO dao = new StudentDAO();
+            List<StudentDTO> list = dao.loadFromInternal(fis);
+            if (dao.saveToExternal(list)) {
+                Toast.makeText(this, "Save to SD Card success", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Save to SD Card fail", Toast.LENGTH_SHORT).show();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

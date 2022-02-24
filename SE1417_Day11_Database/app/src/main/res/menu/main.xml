@@ -17,4 +17,16 @@
         android:orderInCategory="100"
         android:title="Load Data From Internal" />
 
+ <item
+        android:id="@+id/action_loadFromExternal"
+        android:onClick="clickToLoadFromExternal"
+        android:orderInCategory="100"
+        android:title="Load Data From SD Card  (External)" />
+
+ <item
+        android:id="@+id/action_saveToExternal"
+        android:onClick="clickToSaveToExternal"
+        android:orderInCategory="100"
+        android:title="Save Data to SD Card (External)" />
+
 </menu>

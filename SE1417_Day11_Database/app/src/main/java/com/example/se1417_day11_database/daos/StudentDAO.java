@@ -1,9 +1,12 @@
 package com.example.se1417_day11_database.daos;
 
+import android.os.Environment;
+
 import com.example.se1417_day11_database.dtos.StudentDTO;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -79,5 +82,56 @@ public class StudentDAO {
 
         }
         return result;
+    }
+
+    public boolean saveToExternal(List<StudentDTO> list) throws Exception {
+        boolean check = false;
+        OutputStreamWriter ows = null;
+        FileOutputStream fos = null;
+        try {
+            File sdCard = Environment.getExternalStorageDirectory();
+            String realPath = sdCard.getAbsolutePath();
+            File directory = new File(realPath + "/MyFiles");
+            directory.mkdir();
+            File f = new File(directory, "hieubd.txt");
+            fos = new FileOutputStream(f);
+            ows = new OutputStreamWriter(fos);
+            String s = "";
+            for (StudentDTO dto : list) {
+                s += dto.toString() + "\n";
+            }
+            ows.write(s);
+            ows.flush();
+            check = true;
+        } finally {
+
+        }
+        return check;
+    }
+
+    public List<StudentDTO> loadFromExternal() throws Exception {
+        List<StudentDTO> list = new ArrayList<>();
+        StudentDTO dto = null;
+        String s = null;
+        FileInputStream fis = null;
+        BufferedReader br = null;
+        InputStreamReader isr = null;
+        try {
+            File sdCard = Environment.getExternalStorageDirectory();
+            String realPath = sdCard.getAbsolutePath();
+            File directory = new File(realPath + "/MyFiles");
+            File f = new File(directory, "hieubd.txt");
+            fis = new FileInputStream(f);
+            isr = new InputStreamReader(fis);
+            br = new BufferedReader(isr);
+            while ((s = br.readLine()) != null) {
+                String[] tmp = s.split("-");
+                dto = new StudentDTO(tmp[0], tmp[1], Float.parseFloat(tmp[2]));
+                list.add(dto);
+            }
+        } finally {
+
+        }
+        return list;
     }
 }
