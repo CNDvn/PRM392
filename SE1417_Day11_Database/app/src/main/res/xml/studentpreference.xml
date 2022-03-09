@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Category 1">
+        <EditTextPreference
+            android:key="IDPreference"
+            android:summary="ID Demo"
+            android:title="StudentID" />
+        <CheckBoxPreference
+            android:key="GenderPref"
+            android:summary="Gender Demo"
+            android:title="Gender" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Category 1">
+        <EditTextPreference
+            android:key="NamePrefer"
+            android:summary="Name Demo"
+            android:title="Name" />
+        <CheckBoxPreference
+            android:key="MarkPref"
+            android:summary="Mark Demo"
+            android:title="Mark" />
+    </PreferenceCategory>
+</PreferenceScreen>

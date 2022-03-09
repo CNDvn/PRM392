@@ -189,4 +189,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    public void clickToStudentPreference(MenuItem item) {
+        Intent intent = new Intent(this, StudentPreferenceActivity.class);
+        startActivity(intent);
+    }
 }

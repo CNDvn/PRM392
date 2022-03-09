@@ -28,5 +28,10 @@
         android:onClick="clickToSaveToExternal"
         android:orderInCategory="100"
         android:title="Save Data to SD Card (External)" />
+ <item
+        android:id="@+id/action_StudentPreference"
+        android:onClick="clickToStudentPreference"
+        android:orderInCategory="100"
+        android:title="Student Preference" />
 
 </menu>

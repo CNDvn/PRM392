@@ -3,6 +3,7 @@
     package="com.example.se1417_day11_database">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SE1417_Day11_Database">
+        <activity
+            android:name=".StudentPreferenceActivity"
+            android:exported="true" />
         <activity
             android:name=".DetailActivity"
             android:exported="true" />
